@@ -2,10 +2,15 @@
 .nav{
 	grid-area: n;
 	background-color: darkcyan;
-	
+	padding: 20px;
 }
 
 .item{
 	color: cornsilk;
 	line-height: 32px;
+	text-decoration: none;
+}
+
+.active {
+	color: limegreen;
 }

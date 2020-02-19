@@ -1,0 +1,31 @@
+.Dialogs {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    background-color: darkkhaki;
+}
+
+.Dialog {
+    padding: 10px;
+    color: indigo;
+}
+
+.Dialog .DialogItem {
+
+}
+
+.Dialog .DialogItem .item {
+    text-decoration: none;
+}
+
+.active{
+    /*color: hotpink;*/
+}
+
+.Messages {
+    padding: 10px;
+    color: midnightblue;
+}
+
+.Messages .Message {
+
+}

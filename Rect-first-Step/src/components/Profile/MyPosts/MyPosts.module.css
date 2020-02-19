@@ -1,5 +1,9 @@
 .post{
+	margin-top: 10px;
+}
 
+.textareaButtons{
+	padding: 10px;
 }
 .item{
 	color: lavender;

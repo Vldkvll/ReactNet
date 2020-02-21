@@ -1,15 +1,17 @@
 import React from "react";
-import cs from "./Profile.module.css"
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import Posts from "./MyPosts/Posts/Posts";
+import {addPost} from "../../MyRedux/State";
 
 const Profile = (props) => {
-    let postsElements = props.postsElements.map(postElem =>(<Posts messenger={postElem.messenger} likesCount={postElem.likesCount}/>))
+    // props.addPost("I'm clever & rich.");
     return (
         <div>
-            <ProfileInfo/>
-            <MyPosts postsElements={postsElements}/>
+            <ProfileInfo />
+            <MyPosts posts={props.profilePage.postData}
+                     newPostText = {props.profilePage.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+                     addPost={props.addPost} />
         </div>
     );
 };

@@ -9,23 +9,29 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
+import Sidebar from "./components/Sidebar/Sidebar";
+
 
 const App = (props) => {
+    // props.addPost("I'm clever & rich.");
     return (
-        <BrowserRouter>
+
+
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    {/*<Route path="/profile" render={Profile}/>*/}
-                    <Route path="/profile" render={() =>(<Profile postsElements={props.postsElements} />)}/>
-                    <Route path="/dialogs" render={() => (<Dialogs dialogItemData={props.dialogItemData} messagesData={props.messagesData} />)}/>
+                    <Route path="/profile" render={() => (<Profile profilePage={props.state.profilePage}
+                                                                   updateNewPostText={props.updateNewPostText}
+                                                                   addPost={props.addPost} />)}/>
+                    <Route path="/dialogs" render={() => (<Dialogs dialogPage={props.state.dialogPage} />)}/>
                     <Route path="/settings" render={Settings}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>
+                    <Route path="/sidebar" component={Sidebar}/>
                 </div>
             </div>
-        </BrowserRouter>
+
     )
         ;
 };

@@ -1,6 +1,6 @@
 .Dialogs {
     display: grid;
-    grid-template-columns: 3fr 9fr;
+    grid-template-columns: 3fr 3fr 9fr;
     background-color: darkkhaki;
 }
 
@@ -28,4 +28,10 @@
 
 .Messages .Message {
 
+}
+
+.Buttons{
+    display: block;
+    padding-top: 20px;
+    padding-left: 20px;
 }

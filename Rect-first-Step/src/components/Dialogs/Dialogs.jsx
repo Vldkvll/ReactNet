@@ -4,34 +4,36 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogsItem";
 
 const Dialogs = (props) => {
-    console.log(props);
-    // let dialogItemData = [
-    //     {name: "Katya", id: "1"},
-    //     {name: "Dima", id: "2"},
-    //     {name: "Sasha", id: "3"},
-    //     {name: "Luda", id: "4"},
-    //     {name: "Anna", id: "5"},
-    // ];
-    //
-    // let messagesData = [
-    //     {id:0, message: "Hi! U 'r great!!!"},
-    //     {id:1, message: "Whatsup?"},
-    //     {id:2, message: "Hi there!"},
-    //     {id:3, message: "Fine"},
-    //     {id:4, message: "Second and First"},
-    // ];
+    let dialogsElements = props.dialogPage.dialogItemData.map(dialElem => (
+        <DialogItem name={dialElem.name} id={dialElem.id}/>));
+    let messagesElements = props.dialogPage.messagesData.map(messageElem => (<Message message={messageElem.message}/>));
 
-    let dialogsElements = props.dialogItemData.map(dialElem => (<DialogItem name={dialElem.name} id={dialElem.id} />));
-    let messagesElements = props.messagesData.map(messageElem => ( <Message message={messageElem.message}/>));
+    let newPostElement = React.createRef();
+    let addPost = () => {
+        let textPost = newPostElement.current.value;
+        alert(textPost);
+    };
 
     return (
         <div className={cs.Dialogs}>
+
+            <div className={cs.Buttons}>
+                <textarea ref={newPostElement}></textarea>
+                <div className={cs.buttons}>
+                    <button onClick={addPost}>Add post</button>
+
+                    <button>Remove</button>
+                </div>
+            </div>
+
             <div className={cs.Dialog}>
                 {dialogsElements}
             </div>
+
             <div className={cs.Messages}>
-                { messagesElements }
+                {messagesElements}
             </div>
+
 
         </div>
     );

@@ -4,7 +4,6 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {addPost} from "../../MyRedux/State";
 
 const Profile = (props) => {
-    // props.addPost("I'm clever & rich.");
     return (
         <div>
             <ProfileInfo />

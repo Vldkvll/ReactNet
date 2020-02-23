@@ -2,39 +2,43 @@ import React from "react";
 import cs from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogsItem";
+import {sendMessageCreator, updateNewMessageBodyCreator} from "../../MyRedux/State";
 
 const Dialogs = (props) => {
-    let dialogsElements = props.dialogPage.dialogItemData.map(dialElem => (
+    let dialogsElements = props.dialogsPage.dialogItemData.map(dialElem => (
         <DialogItem name={dialElem.name} id={dialElem.id}/>));
-    let messagesElements = props.dialogPage.messagesData.map(messageElem => (<Message message={messageElem.message}/>));
+    let messagesElements = props.dialogsPage.messagesData.map(messageElem => (
+        <Message message={messageElem.message}/>));
+    let newMessageBody = props.dialogsPage.newMessageBody;
 
-    let newPostElement = React.createRef();
-    let addPost = () => {
-        let textPost = newPostElement.current.value;
-        alert(textPost);
+    let newSendElement = React.createRef();
+
+    let OnNewMessageChange = () => {
+        let bodyEl = newSendElement.current.value;
+        props.dispatch(updateNewMessageBodyCreator(bodyEl));
+
+    };
+    let onSendMessageClick = () => {
+        props.dispatch(sendMessageCreator());
     };
 
     return (
         <div className={cs.Dialogs}>
-
+            <div className={cs.TextButtons}>
+                    <textarea onChange={OnNewMessageChange} value={newMessageBody} ref={newSendElement}
+                              placeholder="Enter your message"></textarea>
             <div className={cs.Buttons}>
-                <textarea ref={newPostElement}></textarea>
-                <div className={cs.buttons}>
-                    <button onClick={addPost}>Add post</button>
-
-                    <button>Remove</button>
-                </div>
+                <button onClick={onSendMessageClick}>Send</button>
+                <button>Remove</button>
             </div>
-
+        </div>
             <div className={cs.Dialog}>
                 {dialogsElements}
             </div>
-
             <div className={cs.Messages}>
-                {messagesElements}
+                <div>{messagesElements}</div>
+
             </div>
-
-
         </div>
     );
 };

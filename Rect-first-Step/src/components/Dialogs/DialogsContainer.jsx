@@ -4,8 +4,6 @@ import Dialogs from "./Dialogs";
 import StoreContext from "../../storeContext";
 
 const DialogsContainer = () => {
-
-
     return (<StoreContext.Consumer>
             {
             (store) => {

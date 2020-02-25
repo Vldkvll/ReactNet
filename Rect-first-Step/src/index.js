@@ -1,27 +1,23 @@
 import React from 'react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import store  from "./MyRedux/redux-store";
+import store from "./MyRedux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {Provider} from "./storeContext";
+import {Provider} from "react-redux";
 
 
-let rerenderEntireTree = (state) => {
-    ReactDOM.render
-    (
-        <BrowserRouter>
-            <Provider store={store}>
-            <App />
-            </Provider>
-        </BrowserRouter>, document.getElementById('root')
-    )
-};
-rerenderEntireTree();
-store.subscribe( () => {
-    rerenderEntireTree();
-});
+ReactDOM.render
+(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>, document.getElementById('root')
+);
+
+window.store = store;
 
 
 // If you want your app to work offline and load faster, you can change

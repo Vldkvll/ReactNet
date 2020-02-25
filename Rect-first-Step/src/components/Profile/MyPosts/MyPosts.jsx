@@ -5,8 +5,10 @@ import Posts from "./Posts/Posts";
 
 const MyPosts = (props) => {
     // ("I'm clever & rich.")
-    let postsElements = props.posts.map(postElem =>
-        (<Posts messenger={postElem.messenger} likesCount={postElem.likesCount}/>));
+    let state = props.profilePage;
+    let dispatch = props.dispatch;
+    let postsElements = state.postData.map(postElem =>
+        (<Posts messenger={postElem.messenger} likesCount={postElem.likesCount} key={postElem.id}/>));
 
     let newPostElement = React.createRef();
 

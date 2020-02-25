@@ -5,12 +5,12 @@ import DialogItem from "./DialogItem/DialogsItem";
 
 
 const Dialogs = (props) => {
-    let state = props.state;
-
+    let state = props.dialogsPage;
+    // debugger;
     let dialogsElements = state.dialogItemData.map(dialElem => (
-        <DialogItem name={dialElem.name} id={dialElem.id}/>));
+        <DialogItem name={dialElem.name} id={dialElem.id} key={dialElem.id}/>));
     let messagesElements = state.messagesData.map(messageElem => (
-        <Message message={messageElem.message}/>));
+        <Message message={messageElem.message} key={messageElem.id}/>));
     let newMessageBody = state.newMessageBody;
 
     let newSendElement = React.createRef();

@@ -1,0 +1,23 @@
+.users{
+
+}
+
+.imgUsers{
+    display: block;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.selectedPage{
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.unselectedPage{
+    cursor: pointer;
+}
+
+.preloader {
+    width: 100px;
+}

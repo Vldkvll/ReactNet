@@ -1,13 +1,22 @@
 
-.header{
-	grid-area: h;
-	background-color: beige;
+
+
+.header img {
+    display: block;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 40px;
+    /* margin: 5px 20px 5px; */
 }
 
-.header img{
-	display: block;
-	margin-top: 15px;
-	margin-left: 15px;
-	width: 40px;
-	/* margin: 5px 20px 5px; */
+.loginBlock {
+    display: block;
+    float: right;
+    font-weight: bold;
+    color: navy;
+}
+
+.loginBlock .navlink {
+    font-weight: bold;
+    color: firebrick;
 }

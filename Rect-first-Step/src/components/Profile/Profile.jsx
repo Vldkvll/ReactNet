@@ -1,8 +1,6 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import cs from "./Profile.module.css"
-import {Redirect} from "react-router-dom";
 
 const Profile = (props) => {
 

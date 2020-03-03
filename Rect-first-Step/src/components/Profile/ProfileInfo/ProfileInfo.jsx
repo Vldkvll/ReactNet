@@ -13,10 +13,10 @@ const ProfileInfo = (props) => {
     return (
         <div>
             <div>
-                <img
-                    src="https://cdn.pixabay.com/photo/2018/01/06/07/53/social-3064515_960_720.jpg"
-                    alt="social"
-                ></img>
+                {/*<img*/}
+                {/*    src="https://cdn.pixabay.com/photo/2018/01/06/07/53/social-3064515_960_720.jpg"*/}
+                {/*    alt="social"*/}
+                {/*></img>*/}
             </div>
             <div className={`${cs.item} ${cs.descriptionBlock}`}>
                 <div className={cs.ava}>

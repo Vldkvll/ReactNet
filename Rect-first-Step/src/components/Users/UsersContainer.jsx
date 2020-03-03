@@ -45,6 +45,7 @@ class UsersComponent extends React.Component {
                    unfollow={this.props.unfollow}
                    onPageChange={this.onPageChange}
                    followingInProgress={this.props.followingInProgress}
+                   isAuth={this.props.isAuth}
             />
 
         </>
@@ -61,6 +62,7 @@ const mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth,
     }
 };
 

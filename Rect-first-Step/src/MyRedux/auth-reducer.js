@@ -6,8 +6,8 @@ const LOGIN_IS_FETCHING = "LOGIN-IS-FETCHING";
 
 let initialState = {
     usersId: null,
-    email: null,  //blabla@blabla,
-    login: null,  //samurai,
+    email: null,
+    login: null,
     isAuth: false,
     isFetching: false,
 };

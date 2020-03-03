@@ -13,7 +13,7 @@ class HeaderContainer extends React.Component {
     // don't forget to create function render () !!!!!!!!!!!!!!
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {/*{this.props.isFetching ? <Preloader/> : null}*/}
             <div>
                 <Header {...this.props} />
             </div>

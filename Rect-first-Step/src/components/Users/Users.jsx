@@ -1,10 +1,13 @@
 import React from "react";
 import cs from "./Users.module.css";
 import userPhoto from "../../assets/images/avaIndianGirl.jpg"
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 let Users = (props) => {
+
+    if(props.isAuth===false) return <Redirect to={"/login"} />;
+
     let pageCount = Math.ceil(+props.totalUsersCount  / +props.pageSize);
 
     let pages = [ ];

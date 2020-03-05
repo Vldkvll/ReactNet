@@ -1,8 +1,9 @@
-import {UserAPI} from "../API/api";
+import {ProfileAPI, UserAPI} from "../API/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
 
 let initialState = {
     postData: [
@@ -14,7 +15,8 @@ let initialState = {
         {id: 5, messenger: "U 'r  brilliant person, too!", likesCount: " 23"},
     ],
     newPostText: "I'm the great!",
-    profile: null
+    profile: null,
+    status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -44,6 +46,14 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile,
             };
         }
+
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status,
+            };
+        }
+
         default:
             return state;
     }
@@ -53,10 +63,33 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (newText) => ({type: UPDATE_NEW_POST_TEXT, newText: newText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const setStatus = (status) => ({type: SET_STATUS, status});
+
+// Thunk component
 export const getUserProfile = (userId) => {
     return ((dispatch) => {
             UserAPI.getProfile(userId).then(data => {
                 dispatch(setUserProfile(data));
+            });
+        }
+    )
+};
+
+export const getStatusUsers = (userId) => {
+    return ((dispatch) => {
+            ProfileAPI.getStatus(userId).then(response => {
+                dispatch(setStatus(response.data));
+            });
+        }
+    )
+};
+
+export const updateStatus = (status) => {
+    return ((dispatch) => {
+            ProfileAPI.updateStatus(status).then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status));
+                }
             });
         }
     )

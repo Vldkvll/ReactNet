@@ -1,7 +1,7 @@
 import React from "react";
 import cs from "./Users.module.css";
 import userPhoto from "../../assets/images/avaIndianGirl.jpg"
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 let Users = (props) => {
@@ -17,7 +17,7 @@ let Users = (props) => {
 
             <div>
                 {pages.map( (page) =>
-                        (<span className={props.currentPage === page ? cs.selectedPage : cs.unselectedPage }
+                        (<span  key={page} className={props.currentPage === page ? cs.selectedPage : cs.unselectedPage }
                                onClick={ (event) => { props.onPageChange(page) } }> {page}  </span>) )}
 
                 {
@@ -31,11 +31,11 @@ let Users = (props) => {
 
                         <div>
                             {user.followed
-                                ? <button disabled={props.followingInProgress.some( id => id === user.id )}
+                                ? <button key={user.id} disabled={props.followingInProgress.some( id => id === user.id )}
                                           onClick={() => {props.unfollow(user.id)}}>
                                     unfollow
                                 </button>
-                                : <button disabled={props.followingInProgress.some( id => id === user.id )}
+                                : <button  key={user.id} disabled={props.followingInProgress.some( id => id === user.id )}
                                           onClick={() => {
                                               props.follow(user.id)}}>
                                     follow

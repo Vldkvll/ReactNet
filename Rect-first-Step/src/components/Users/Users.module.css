@@ -7,6 +7,11 @@
     width: 80px;
     border-radius: 50%;
 }
+.imgUsers img{
+    display: block;
+    width: 100px;
+    border-radius: 50%;
+}
 
 .selectedPage{
     font-weight: bold;

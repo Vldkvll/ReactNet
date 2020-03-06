@@ -6,31 +6,6 @@ import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-// const DialogsContainer = () => {
-//     return (<StoreContext.Consumer>
-//             {
-//             (store) => {
-//                 let state = store.getState().dialogsPage;
-//
-//                 let OnNewMessageChange = (body) => {
-//                     store.dispatch(updateNewMessageBodyCreator(body));
-//
-//                 };
-//                 let onSendMessageClick = () => {
-//                     store.dispatch(sendMessageCreator());
-//                 };
-//                 return (
-//                     <Dialogs state={state}
-//                              updateNewMessageBody={OnNewMessageChange}
-//                              sendMessage={onSendMessageClick}
-//                     />
-//                 )
-//             }
-//         }
-//
-//         </StoreContext.Consumer>
-//     );
-// };
 
 const mapStateToProps = (state) => {
     return{
@@ -38,15 +13,27 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageBodyCreator(body));
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator());
-        },
+let mapDispatchToProps = (dispatch) => {
+    return {
+        sendMessage: (newMessageBody) => {
+            dispatch(sendMessageCreator(newMessageBody));
+        }
     }
-};
+}
 
-export default compose(connect(mapStateToProps,mapDispatchToProps), withAuthRedirect)(Dialogs);
+
+// let mapDispatchToProps = (dispatch) => {
+//     return{
+//         sendMessage: (newMessageBody) => {
+//             dispatch(sendMessageCreator(newMessageBody));
+//         },
+//         // updateNewMessageBody: (body) => {
+//         //     dispatch(updateNewMessageBodyCreator(body));
+//         // },
+//
+//     }
+// };
+
+export default compose(connect(mapStateToProps,mapDispatchToProps),
+    // withAuthRedirect
+)(Dialogs);

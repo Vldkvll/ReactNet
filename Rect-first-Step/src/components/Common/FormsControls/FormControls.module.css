@@ -1,10 +1,28 @@
-.formControl{
-    padding: 10px;
-display: inline-block;
-    background: firebrick;
-    color: aliceblue;
-    opacity: 50%;
-    border-radius: 5%;
+/*.formControl{*/
+/*    padding: 10px;*/
+/*display: inline-block;*/
+/*    background: firebrick;*/
+/*    color: aliceblue;*/
+/*    opacity: 50%;*/
+/*    border-radius: 5%;*/
+/*}*/
+
+
+.formControl.error input,
+.formControl.error textarea
+{
+    border: solid red 2px;
 }
 
+.formControl.error span
+{
+    color: red;
+}
 
+.formSummaryError{
+    display: inline-block;
+    border: solid red 1px;
+    padding: 5px;
+    font-weight: bold;
+    color: deeppink;
+}

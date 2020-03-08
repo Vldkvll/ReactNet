@@ -1,4 +1,5 @@
 import {AuthApi} from "../API/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET-USER-DATA";
 const LOGIN_IS_FETCHING = "LOGIN-IS-FETCHING";
@@ -32,10 +33,11 @@ export const setAuthUserData = (usersId, login, email, isAuth ) => ({type: SET_U
     data:{usersId, login, email, isAuth} });
 
 export const getAuthUserDataThunk = () => ((dispatch) => {
-    AuthApi.myAuth().then(data => {
-        if (data.resultCode === 0) {
-            let {id,  login, email} = data.data;
-            dispatch(setAuthUserData(id, login, email, true ));
+    return AuthApi.myAuth()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id,  login, email} = data.data;
+                dispatch(setAuthUserData(id, login, email, true ));
         }
     });
 } );
@@ -44,7 +46,10 @@ export const login = (email, password, rememberMe) => ((dispatch) => {
     AuthApi.login(email, password, rememberMe).then(data => {
         if (data.resultCode === 0) {
             dispatch(getAuthUserDataThunk());
-
+        } else {
+            let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
+            let actionForReduxForm = stopSubmit("login", {_error: message});
+            dispatch(actionForReduxForm);
         }
     });
 } );

@@ -76,6 +76,6 @@ export default compose(
             getUsersThunk: getUserThunkCreator,
         }
     ),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersComponent)
 

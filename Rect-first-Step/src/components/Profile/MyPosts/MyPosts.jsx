@@ -1,7 +1,7 @@
 import React from "react";
 import cs from "./MyPosts.module.css"
 import Posts from "./Posts/Posts";
-import {HanderMyPostsForm} from "./MyPostsForm";
+import {HandlerMyPostsForm} from "./MyPostsForm";
 
 
 const MyPosts = (props) => {
@@ -11,35 +11,14 @@ const MyPosts = (props) => {
     let postsElements = state.postData.map(postElem =>
         (<Posts messenger={postElem.messenger} likesCount={postElem.likesCount} key={postElem.id}/>));
 
-    // let newPostElement = React.createRef();
-    //
-    // let addNewPosts = () => {
-    //     props.addPosts();
-    // };
-    //
-    // let onPostChange = () => {
-    //     let textPost = newPostElement.current.value;
-    //     props.updateNewPostText(textPost);
-    // };
-    const onSubmit = (formData) => {
-        console.log(formData)
+    const onSubmit = (values) => {
+        if(values) props.addPosts(values.newPostText);
     };
     return (
         <div>
             <div className={cs.textareaButtons}>
                 <h3>My Posts</h3>
-                <HanderMyPostsForm onSubmit={onSubmit}/>
-                {/*<div>*/}
-                {/*    <div>*/}
-                {/*    <textarea onChange={onPostChange} ref={newPostElement}*/}
-                {/*              value={props.newPostText} />*/}
-                {/*    </div>*/}
-                {/*    <div className={cs.buttons}>*/}
-                {/*        <button onClick={addNewPosts}>Add post</button>*/}
-
-                {/*        <button>Remove</button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <HandlerMyPostsForm onSubmit={onSubmit}/>
             </div>
             <div className={cs.post}>
                 {postsElements}

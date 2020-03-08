@@ -1,0 +1,10 @@
+.formControl{
+    padding: 10px;
+display: inline-block;
+    background: firebrick;
+    color: aliceblue;
+    opacity: 50%;
+    border-radius: 5%;
+}
+
+

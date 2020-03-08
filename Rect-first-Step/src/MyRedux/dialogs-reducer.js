@@ -23,7 +23,6 @@ export const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
             let body = action.newMessageBody;
-            debugger
             return  {
                 ...state,
                 messagesData: [...state.messagesData, {id: 5, message: body},],
@@ -35,7 +34,5 @@ export const dialogsReducer = (state = initialState, action) => {
     ;
 };
 
-export const sendMessageCreator = (newMessageBody) =>
-    ({type: SEND_MESSAGE}, newMessageBody);
-
-// export const updateNewMessageBodyCreator = (body) => ({type: UPDATE_NEW_MESSAGE_BODY, body: body});
+export const sendMessage = (newMessageBody) =>
+    ({type: SEND_MESSAGE, newMessageBody});

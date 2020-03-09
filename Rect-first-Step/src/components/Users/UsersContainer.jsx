@@ -12,7 +12,7 @@ import {
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
-    getPageSize,
+    getPageSize, getSuperUsersSelector,
     getTotalUsersCount,
     getUsers
 } from "../../MyRedux/user-selectors";
@@ -45,7 +45,7 @@ class UsersComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: getUsers(state),
+        users: getSuperUsersSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),

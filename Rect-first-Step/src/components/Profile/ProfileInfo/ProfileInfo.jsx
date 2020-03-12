@@ -1,6 +1,7 @@
 import React from "react";
 import cs from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHook from "./ProfileStatusWithHook";
 // import photoAva from "../../../assets/images/aVaSummer.png"
 
 const ProfileInfo = (props) => {
@@ -32,7 +33,7 @@ const ProfileInfo = (props) => {
                 </div>
                 <div className={cs.profileStatus}>
 
-                <div> <ProfileStatus status={props.status} updateStatus={props.updateStatus} /></div>
+                <div> <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus} /></div>
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ import Posts from "./Posts/Posts";
 import {HandlerMyPostsForm} from "./MyPostsForm";
 
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
     // ("I'm clever & rich.")
     let state = props.profilePage;
     let dispatch = props.dispatch;
@@ -25,7 +25,7 @@ const MyPosts = (props) => {
             </div>
         </div>
     );
-};
+});
 export default MyPosts;
 
 

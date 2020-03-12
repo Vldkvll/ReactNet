@@ -17,7 +17,6 @@ class ProfileContainer extends React.Component {
                     this.props.history.push("/login");
                 }
         }
-
         this.props.getUserProfile(userId);
         this.props.getStatusUsers(userId);
     };
@@ -31,7 +30,6 @@ class ProfileContainer extends React.Component {
                          status={this.props.statusFromState}
                          updateStatus={ this.props.updateStatus}/>
             </div>
-
         </>
     }
 }
@@ -42,7 +40,6 @@ const mapStateToProps = (state) => {
         statusFromState: state.profilePage.status,
         AuthorizedId: state.auth.usersId,
         isAuthFromState: state.auth.isAuth,
-
     }
 };
 

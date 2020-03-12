@@ -1,9 +1,10 @@
 import {ProfileAPI, UserAPI} from "../API/api";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_STATUS = "SET-STATUS";
+const ADD_POST = "4-buddy.net/profile/ADD-POST";
+const DELETE_POST = "4-buddy.net/profile/DELETE-POST";
+const UPDATE_NEW_POST_TEXT = "4-buddy.net/profile/UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "4-buddy.net/profile/SET-USER-PROFILE";
+const SET_STATUS = "4-buddy.net/profile/SET-STATUS";
 
 let initialState = {
     postData: [
@@ -34,6 +35,14 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: "",
             };
         }
+
+        case DELETE_POST: {
+            return {
+                ...state,
+                postData: state.postData.filter( el => el.id !== action.id),
+            };
+        }
+
         case UPDATE_NEW_POST_TEXT: {
             return {
                 ...state,
@@ -61,38 +70,33 @@ const profileReducer = (state = initialState, action) => {
 };
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
+export const deletePostActionCreator = (id) => ({type: DELETE_POST, id});
 export const updateNewPostTextActionCreator = (newText) => ({type: UPDATE_NEW_POST_TEXT, newText: newText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
 // Thunk component
-export const getUserProfile = (userId) => {
-    return ((dispatch) => {
-            UserAPI.getProfile(userId).then(data => {
-                dispatch(setUserProfile(data));
+export const getUserProfile =  (userId) => {
+    return ( async (dispatch) => {
+            const responseData = await UserAPI.getProfile(userId)
+                dispatch(setUserProfile(responseData));
             });
-        }
-    )
 };
 
-export const getStatusUsers = (userId) => {
-    return ((dispatch) => {
-            ProfileAPI.getStatus(userId).then(response => {
+export const getStatusUsers =  (userId) => {
+    return ( async (dispatch) => {
+            const response = await ProfileAPI.getStatus(userId)
                 dispatch(setStatus(response.data));
             });
-        }
-    )
 };
 
 export const updateStatus = (status) => {
-    return ((dispatch) => {
-            ProfileAPI.updateStatus(status).then(response => {
+    return ( async (dispatch) => {
+            const response = await ProfileAPI.updateStatus(status)
                 if (response.data.resultCode === 0) {
                     dispatch(setStatus(status));
                 }
             });
-        }
-    )
 };
 
 export default profileReducer;

@@ -1,19 +1,16 @@
 import React from "react";
 import cs from "./ProfileInfo.module.css"
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHook from "./ProfileStatusWithHook";
+import Preloader from "../../Common/Preloader/Preloader";
 // import photoAva from "../../../assets/images/aVaSummer.png"
 
-const ProfileInfo = (props) => {
-    // if (!props.profile){
-    //     return <Preloader />;
-    // }
+const ProfileInfo = ({profile, ...props}) => {
+    if (!profile){
+        return <Preloader />;
+    }
     let photoAva = 'https://cdn.pixabay.com/photo/2020/02/11/14/10/summer-4839685_960_720.png'
 
-    let lorem =' Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam qui debitis omnis, reprehenderit\n' +
-        '                    sapiente ad quos. Expedita harum molestiae nulla sit in earum culpa corporis. Facilis voluptate et\n' +
-        '                    nobis atque!';
-    let profile = props.profile;
+    // let profile = props.profile;
 
     return (
         <div>
@@ -25,11 +22,13 @@ const ProfileInfo = (props) => {
                          alt="Profile ava"></img>
                 </div>
                 <div className={cs.profile}>
-                    { !profile ? lorem : props.profile.fullName}
+                    { !profile ? "" : profile.fullName}
                     <br/><br/>
-                    { !profile ? lorem : props.profile.aboutMe}
+                    { !profile ? "" : profile.aboutMe}
                     <br/><br/>
-                    { !profile ? lorem : props.profile.contacts.github}
+                    { !profile ? "" : profile.contacts.github}
+                    <br/><br/>
+                    { !profile ? "" : ` userId: ${profile.userId}`}
                 </div>
                 <div className={cs.profileStatus}>
 

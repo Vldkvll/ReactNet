@@ -20,7 +20,7 @@ export const UserAPI = {
     },
 
     setFollow: (user) => {
-        return instance.delete(`follow/${user}`)
+        return instance.post(`follow/${user}`)
             .then(response => response.data);
     },
 

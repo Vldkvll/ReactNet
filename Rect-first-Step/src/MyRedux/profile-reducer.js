@@ -39,7 +39,7 @@ const profileReducer = (state = initialState, action) => {
         case DELETE_POST: {
             return {
                 ...state,
-                postData: state.postData.filter( el => el.id !== action.id),
+                postData: state.postData.filter(el => el.id !== action.id),
             };
         }
 
@@ -66,7 +66,6 @@ const profileReducer = (state = initialState, action) => {
         default:
             return state;
     }
-
 };
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
@@ -76,27 +75,27 @@ export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
 // Thunk component
-export const getUserProfile =  (userId) => {
-    return ( async (dispatch) => {
-            const responseData = await UserAPI.getProfile(userId)
-                dispatch(setUserProfile(responseData));
-            });
+export const getUserProfile = (userId) => {
+    return (async (dispatch) => {
+        const responseData = await UserAPI.getProfile(userId)
+        dispatch(setUserProfile(responseData));
+    });
 };
 
-export const getStatusUsers =  (userId) => {
-    return ( async (dispatch) => {
-            const response = await ProfileAPI.getStatus(userId)
-                dispatch(setStatus(response.data));
-            });
+export const getStatusUsers = (userId) => {
+    return (async (dispatch) => {
+        const response = await ProfileAPI.getStatus(userId)
+        dispatch(setStatus(response.data));
+    });
 };
 
 export const updateStatus = (status) => {
-    return ( async (dispatch) => {
-            const response = await ProfileAPI.updateStatus(status)
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status));
-                }
-            });
+    return (async (dispatch) => {
+        const response = await ProfileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
+    });
 };
 
 export default profileReducer;

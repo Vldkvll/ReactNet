@@ -1,5 +1,5 @@
 .users{
-
+    width: 100%;
 }
 
 .imgUsers{
@@ -11,16 +11,6 @@
     display: block;
     width: 100px;
     border-radius: 50%;
-}
-
-.selectedPage{
-    font-weight: bold;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.unselectedPage{
-    cursor: pointer;
 }
 
 .preloader {

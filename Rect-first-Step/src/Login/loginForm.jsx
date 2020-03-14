@@ -6,9 +6,9 @@ import cs from "../components/Common/FormsControls/FormControls.module.css";
 
 const maxLength20 = maxLength(20);
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <Field placeholder="Email"
                            name="email"
@@ -30,7 +30,7 @@ const LoginForm = (props) => {
                 <div>
                     <Field type="checkbox" name="rememberMe" component="input" /> remember me
                 </div>
-                { props.error && <div className={cs.formSummaryError}>{props.error}</div>
+                { error && <div className={cs.formSummaryError}>{error}</div>
                 }
                 <div>
                     <button>Submit Login</button>

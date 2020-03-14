@@ -19,14 +19,15 @@ import {
 
 class UsersComponent extends React.Component {
     componentDidMount() {
-        this.props.getUsersThunk(this.props.currentPage, this.props.pageSize);
+        const {getUsersThunk, currentPage, pageSize} = this.props;
+        getUsersThunk(currentPage, pageSize);
     };
 
     onPageChange = (pageNumber) => {
-        this.props.getUsersThunk(pageNumber, this.props.pageSize);
+        const {getUsersThunk, pageSize} = this.props;
+        getUsersThunk(pageNumber, pageSize);
     };
 
-    // don't forget to create function render () !!!!!!!!!!!!!!
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}

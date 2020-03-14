@@ -33,7 +33,7 @@ const LoginForm = ({handleSubmit, error}) => {
                 { error && <div className={cs.formSummaryError}>{error}</div>
                 }
                 <div>
-                    <button>Submit Login</button>
+                    <button className="btn btn-success disabled">Submit Login</button>
                 </div>
             </form>
     )

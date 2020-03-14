@@ -1,18 +1,34 @@
-.paginatorBlock{
-    display: block;
-    
+/*.paginatorBlock{*/
+/*    display: block;*/
+
+/*}*/
+
+/*.selectedPage{*/
+/*    display: inline-block;*/
+/*    font-weight: bold;*/
+/*    font-size: 1.2rem;*/
+/*    cursor: pointer;*/
+/*    margin-right: 2px;*/
+/*}*/
+
+/*.unselectedPage{*/
+/*    display: inline-block;*/
+/*    cursor: pointer;*/
+/*    margin-right: 2px;*/
+/*}*/
+
+.paginatorBlock {
+    margin: 10px;
+    cursor: pointer;
+}
+.pageNumber {
+    padding: 2px;
+    margin-right: 3px;
+    /*border: 1px solid grey;*/
 }
 
-.selectedPage{
-    display: inline-block;
+.pageNumber.selectedPage {
     font-weight: bold;
     font-size: 1.2rem;
-    cursor: pointer;
-    margin-right: 2px;
-}
-
-.unselectedPage{
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 2px;
+    border-color: black;
 }

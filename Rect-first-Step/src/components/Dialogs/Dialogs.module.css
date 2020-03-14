@@ -6,7 +6,7 @@
 
 .Dialog {
     padding: 10px;
-    color: indigo;
+    color: gold;
 }
 
 .Dialog .DialogItem {
@@ -15,6 +15,7 @@
 
 .Dialog .DialogItem .item {
     text-decoration: none;
+    color: darkred;
 }
 
 .active {

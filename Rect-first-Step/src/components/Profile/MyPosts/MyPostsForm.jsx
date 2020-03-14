@@ -19,7 +19,7 @@ const AddNewPostsForm = (props) => {
                            validate={ [ required, maxLength15 ] } />
                     </div>
                     <div className={cs.buttons}>
-                        <button>Add post</button>
+                        <button className="btn btn-warning disabled">Add post</button>
                     </div>
             </form>
     );

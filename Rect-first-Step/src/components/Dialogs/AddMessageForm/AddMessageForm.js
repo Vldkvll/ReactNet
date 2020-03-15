@@ -9,8 +9,8 @@ const maxLength50 = maxLength(50);
 
 export const AddMessageForm = (props) => {
     return (
-        <form onSubmit={`form-group row ${props.handleSubmit}`}>
-            <div className={`form-group ${cs.TextButtons}`}>
+        <form onSubmit={props.handleSubmit}>
+            <div className={` ${cs.TextButtons}`}>
                 <Field component={renderField}
                        name="newMessageBody"
                        label="Enter your message"

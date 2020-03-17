@@ -5,6 +5,7 @@ const DELETE_POST = "4-buddy.net/profile/DELETE-POST";
 const UPDATE_NEW_POST_TEXT = "4-buddy.net/profile/UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "4-buddy.net/profile/SET-USER-PROFILE";
 const SET_STATUS = "4-buddy.net/profile/SET-STATUS";
+const SET_PHOTO = "4-buddy.net/profile/SET-PHOTO";
 
 let initialState = {
     postData: [
@@ -63,6 +64,13 @@ const profileReducer = (state = initialState, action) => {
             };
         }
 
+        case SET_PHOTO: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos},
+            };
+        }
+
         default:
             return state;
     }
@@ -73,6 +81,7 @@ export const deletePostActionCreator = (id) => ({type: DELETE_POST, id});
 export const updateNewPostTextActionCreator = (newText) => ({type: UPDATE_NEW_POST_TEXT, newText: newText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
+export const setPhotosSuccess = (photos) => ({type: SET_PHOTO, photos});
 
 // Thunk component
 export const getUserProfile = (userId) => {
@@ -97,5 +106,14 @@ export const updateStatus = (status) => {
         }
     });
 };
+
+export const savePhoto = (file) => {
+    return async (dispatch) => {
+        const response = await ProfileAPI.savePhoto(file);
+        if (response.data.resultCode === 0) {
+            dispatch(setPhotosSuccess(response.data.data.photos));
+        }
+    }
+}
 
 export default profileReducer;

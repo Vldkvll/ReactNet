@@ -30,6 +30,19 @@
      /*margin: 0 auto;*/
      /* height: 5; */
      width: 50%;
-     color: floralwhite;
+    /*background-color: darkred;*/
+    font-weight: bold;
+
+    text-shadow: 2px 2px 4px midnightblue;
+    cursor: pointer;
+
      /* text-align: center; */
  }
+
+.profileStatusSpan{
+    color: #0f0a2b;
+}
+
+.labelInputImg {
+
+}

@@ -20,7 +20,9 @@ const Login = ({login, isAuth}) => {
                 <h1>
                     LOGIN
                 </h1>
+
                 <ReduxLoginForm onSubmit={onSubmit} />
+
             </div>
         </>
     )

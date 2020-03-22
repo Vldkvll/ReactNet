@@ -7,16 +7,16 @@ import {AddMessageForm} from "./AddMessageForm/AddMessageForm";
 
 const Dialogs = (props) => {
 
-    let state = props.dialogsPage;
+    const state = props.dialogsPage;
 
-    let dialogsElements = state.dialogItemData.map(dialElem => (
+    const dialogsElements = state.dialogItemData.map(dialElem => (
         <DialogItem name={dialElem.name} id={dialElem.id} key={dialElem.id}/>));
-    let messagesElements = state.messagesData.map(messageElem => (
+    const messagesElements = state.messagesData.map(messageElem => (
         <Message message={messageElem.message} key={messageElem.id}/>));
 
     let newMessageBody;
 
-    let AddNewMessage = (values) => {
+    const AddNewMessage = (values) => {
         newMessageBody= values.newMessageBody;
         props.sendMessage(newMessageBody)
     };

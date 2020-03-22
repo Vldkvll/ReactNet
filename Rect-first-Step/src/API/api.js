@@ -3,19 +3,18 @@ import * as axios from "axios";
 const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-    headers: {"API-KEY": "df58373a-faa4-4b01-a15e-444c4aa6be4b"},
+    headers: {"API-KEY": "aa8cece5-4db3-4400-be6b-bb26b1abbf16"},
 
 });
 
 
 export const UserAPI = {
-    getUsersFromServer: (currentPage= 1, pageSize=8) => {
+    getUsersFromServer: (currentPage = 1, pageSize = 8) => {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
 
     getProfile: (userId) => {
-        //
         return ProfileAPI.getProfile(userId);
     },
 
@@ -35,7 +34,8 @@ export const ProfileAPI = {
 
     getProfile: (userId) => {
         return instance.get(`profile/${userId}`)
-            .then(response => response.data);;
+            .then(response => response.data);
+        ;
     },
     getStatus: (userId) => {
         return instance.get(`profile/status/${userId}`);
@@ -51,7 +51,10 @@ export const ProfileAPI = {
                 "Content-Type": "multipart/form-data"
             }
         });
-}
+    },
+    saveProfileOnServer: (profile) => {
+        return instance.put(`profile/`, profile)
+    }
 
 
 };
@@ -61,7 +64,7 @@ export const AuthApi = {
         return instance.get(`auth/me`)
             .then(response => response.data);
     },
-    login: (email, password, rememberMe=false) => {
+    login: (email, password, rememberMe = false) => {
         return instance.post(`auth/login`, {email, password, rememberMe})
             .then(response => response.data);
     },

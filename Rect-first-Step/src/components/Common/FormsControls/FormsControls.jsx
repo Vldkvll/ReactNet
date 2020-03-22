@@ -1,39 +1,42 @@
 import React from "react";
 import cs from "./FormControls.module.css";
+import {Field} from "redux-form";
 
-export const renderField = ({input, label, type, meta: {touched, error, warning}}) => {
+const FormControl = ({input, label, type, meta:{touched, error}, children, ...props}) => {
     const hasError = touched && error;
     return (
-    <div>
-        {/*<label>{label}</label>*/}
-        <div className={cs.formControl + " " + (hasError ? cs.error : "")}>
-            <textarea {...input} placeholder={label} type={type}/>
-            {/*{touched && ((error && <div className={cs.formControl}>{error}</div>) || (warning && <div>{warning}</div>))}*/}
+        <div className={cs.formControl + " " +
+        (hasError
+            ? cs.error
+            : "")}>
+            <div >{children}</div>
+
         </div>
-    </div>
-)};
+    )
+};
 
-// export const Input = ({input, meta, ...props}) => {
-// //     const hasError = meta.touched && meta.error;
-// //     return (
-// //         <div className={cs.formControl}>
-// //             <div>
-// //                 <input {...input} {...props} />
-// //             </div>
-// //             { hasError && <span>{meta.error}</span>}
-// //         </div>
-// //     )
-// // };
+export const myTextarea = (props) => {
+    const {input, meta, label, children, ...restProps} = props;
+    return <FormControl {...props}><textarea {...input} placeholder={label} {...restProps} /></FormControl>
+};
 
-export const Input = ({input, label, type, meta: {touched, error, warning}}) => {
+export const Input = (props) => {
+    const {input, meta, label, children, ...restProps} = props;
+    return <FormControl {...props}><input {...input} placeholder={label}  {...restProps} /></FormControl>
+};
 
-const hasError = touched && error;
-return (
-    <div>
-        {/*<label>{label}</label>*/}
-       <div className={cs.formControl + " " + (hasError ? cs.error : "")}>
-            <input {...input} placeholder={label} type={type}/>
-            {/*{touched && ((error && <div className={cs.formControl}>{error}</div>) || (warning && <div>{warning}</div>))}*/}
+export const myCreateField = (placeholder, name, type, label, component, validators, text="", ...props) => {
+    return (
+        <div >
+            <Field className="form-control"
+                placeholder={placeholder}
+                   name={name}
+                   type={type}
+                   label={label}
+                   component={component}
+                   validate={validators}
+                   {...props}
+            />{text}
         </div>
-    </div>
-)};
+    )
+};

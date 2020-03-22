@@ -1,41 +1,28 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {Input} from "../components/Common/FormsControls/FormsControls";
+import {reduxForm} from "redux-form";
 import {maxLength, required} from "../Utils/Validators/Validators";
 import cs from "../components/Common/FormsControls/FormControls.module.css";
+import {Input, myCreateField} from "../components/Common/FormsControls/FormsControls";
 
 const maxLength20 = maxLength(20);
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = (props) => {
     return (
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <Field placeholder="Email"
-                           name="email"
-                           type="text"
-                           label="login"
-                           component={Input}
-                           validate={[ required, maxLength20 ]}
-                    />
-                </div>
-                <div>
-                    <Field placeholder="Password"
-                           name="password"
-                           type="password"
-                           label="password"
-                           component={Input}
-                           validate={[ required, maxLength20 ]}
-                    />
-                </div>
-                <div>
-                    <Field type="checkbox" name="rememberMe" component="input" /> remember me
-                </div>
-                { error && <div className={cs.formSummaryError}>{error}</div>
-                }
-                <div>
-                    <button className="btn btn-success disabled">Submit Login</button>
-                </div>
-            </form>
+        <form onSubmit={props.handleSubmit}>
+
+            {myCreateField("Email", "email",
+                "text", "login", Input, [required, maxLength20])}
+            {myCreateField("Password", "password",
+                "password", "password", Input, [required, maxLength20])}
+            {myCreateField(null, "rememberMe", "checkbox", null,
+                Input, null, "remember me")}
+
+            {props.error && <div className={cs.formSummaryError}>{props.error}</div>
+            }
+            <div>
+                <button className={`"btn btn-secondary`}>Submit Login</button>
+            </div>
+        </form>
     )
 };
 

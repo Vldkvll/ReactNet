@@ -1,6 +1,6 @@
 import {getAuthUserDataThunk} from "./auth-reducer";
 
-const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS";
+const INITIALIZED_SUCCESS = "4-BUDDY.NET/INITIALIZED-SUCCESS";
 
 
 
@@ -30,11 +30,6 @@ export const initializeApp = () => (dispatch) => {
     myPromise.then(() => {
         dispatch(initializedSuccess())
     })
-    // Promise.all([myPromise])
-    //     .then(() => {
-    //         dispatch(initializedSuccess());
-    //     });
-
         };
 
 

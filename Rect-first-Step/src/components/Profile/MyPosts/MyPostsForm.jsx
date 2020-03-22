@@ -2,17 +2,16 @@ import React from "react";
 import cs from "./MyPosts.module.css"
 import {Field, reduxForm} from "redux-form";
 import {maxLength, required} from "../../../Utils/Validators/Validators";
-import {renderField} from "../../Common/FormsControls/FormsControls";
+import {myTextarea, renderField, Textarea} from "../../Common/FormsControls/FormsControls";
 
 const maxLength15 = maxLength(15);
 
 const AddNewPostsForm = (props) => {
     // ("I'm clever & rich.")
-
     return (
        <form onSubmit={props.handleSubmit}>
                     <div>
-                    <Field component={renderField}
+                    <Field component={myTextarea}
                            type="text"
                            label="Please enter something beautiful"
                            name="newPostText"
@@ -25,6 +24,6 @@ const AddNewPostsForm = (props) => {
     );
 };
 export const HandlerMyPostsForm= reduxForm({
-    form: "login",
+    form: "myPost",
 })(AddNewPostsForm);
 

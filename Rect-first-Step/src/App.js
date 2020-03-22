@@ -49,7 +49,7 @@ class App extends React.Component {
                             </Suspense>
                         </div>
                     }}/>
-                    <Route path="/login" render={withSuspense(<LoginPage/>)}/>
+                    <Route path="/login" render={withSuspense(LoginPage)}/>
                     <Route path="/dialogs" render={ withSuspense(DialogsContainer)
                     }/>
                     <Route path="/users" render={() => (<UsersContainer/>)}/>

@@ -17,8 +17,7 @@ const LoginForm = (props) => {
             {myCreateField(null, "rememberMe", "checkbox", null,
                 Input, null, "remember me")}
 
-            {props.error && <div className={cs.formSummaryError}>{props.error}</div>
-            }
+            {props.error && <div className={cs.formSummaryError}>{props.error}</div>}
             <div>
                 <button className={`"btn btn-secondary`}>Submit Login</button>
             </div>

@@ -117,25 +117,17 @@ export const savePhoto = (file) => {
     }
 };
 
-// export const saveProfile = (profile) => {
-//     return async (dispatch, getState ) => {
-//         const userId = getState().auth.userId
-//         const response = await ProfileAPI.saveProfileOnServer(profile);
-//         if (response.data.resultCode === 0) {
-//             dispatch(getStatusUsers(userId));
-//         }
-//     }
-// };
-export const saveProfile = (profile) => async (dispatch, getState) => {
-    const userId = getState().auth.usersId;
-    const response = await ProfileAPI.saveProfileOnServer(profile);
-
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfile(userId));
-    } else {
-        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
-        return Promise.reject(response.data.messages[0]);
+export const saveProfile = (profile) => {
+    return async (dispatch, getState ) => {
+        const userId = getState().auth.usersId
+        const response = await ProfileAPI.saveProfileOnServer(profile);
+        if (response.data.resultCode === 0) {
+            dispatch(getUserProfile(userId));
+        } else {
+            dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}))
+            return Promise.reject(response.data.messages[0]);
+        }
     }
-}
+};
 
 export default profileReducer;

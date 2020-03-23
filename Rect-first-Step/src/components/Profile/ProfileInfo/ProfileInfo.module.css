@@ -75,3 +75,11 @@
 .labelInputImg {
 
 }
+
+.formSummaryError{
+    display: inline-block;
+    border: solid red 1px;
+    padding: 5px;
+    font-weight: bold;
+    color: deeppink;
+}

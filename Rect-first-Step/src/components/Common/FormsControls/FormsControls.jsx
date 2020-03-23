@@ -22,13 +22,13 @@ export const myTextarea = (props) => {
 
 export const Input = (props) => {
     const {input, meta, label, children, ...restProps} = props;
-    return <FormControl {...props}><input {...input} placeholder={label}  {...restProps} /></FormControl>
+    return <FormControl {...props}><input  {...input} placeholder={label}  {...restProps} /></FormControl>
 };
 
 export const myCreateField = (placeholder, name, type, label, component, validators, text="", ...props) => {
     return (
         <div >
-            <Field className="form-control"
+            <Field
                 placeholder={placeholder}
                    name={name}
                    type={type}

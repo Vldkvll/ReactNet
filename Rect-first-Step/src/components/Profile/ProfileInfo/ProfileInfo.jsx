@@ -8,7 +8,6 @@ import {ProfileDataFormRedux} from "./ProfileDataForm";
 
 const ProfileInfo = ({profile, isOwner, saveProfile, ...props}) => {
     let [editMode, setEditMode] = useState(false);
-    // let [status, setStatus] = useState(props.status);
 
     if (!profile) {
         return <Preloader/>;
@@ -22,8 +21,9 @@ const ProfileInfo = ({profile, isOwner, saveProfile, ...props}) => {
     };
 
     const onSubmit = (formData) => {
-        saveProfile(formData);
-        setEditMode(false);
+        saveProfile(formData).then(() => {
+            setEditMode(false);
+        })
     };
 
     return (
@@ -51,11 +51,11 @@ const ProfileInfo = ({profile, isOwner, saveProfile, ...props}) => {
                 </div>
 
                 {editMode
-                    ? ( <ProfileDataFormRedux initialValues={profile}
-                                              profile={profile}
-                                              onSubmit={onSubmit}
+                    ? (<ProfileDataFormRedux initialValues={profile}
+                                             profile={profile}
+                                             onSubmit={onSubmit}
                     />)
-                    : ( <ProfileData profile={profile}
+                    : (<ProfileData profile={profile}
                                     isOwner={isOwner}
                                     goToEditMode={() => setEditMode(true)}
                     />)
@@ -68,7 +68,9 @@ const ProfileInfo = ({profile, isOwner, saveProfile, ...props}) => {
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
-            {isOwner && <div><button onClick={goToEditMode} className={`btn btn-outline-primary ${cs.buttonMod}`}>Edit</button></div>}
+            {isOwner && <div>
+                <button onClick={goToEditMode} className={`btn btn-outline-primary ${cs.buttonMod}`}>Edit</button>
+            </div>}
             <div className={cs.profile}>
                 <b className={cs.profileB}> Personality:</b>
                 <div><b className={cs.contactTitle}>Name - </b> {!profile
@@ -109,7 +111,8 @@ const ProfileData = ({profile, isOwner, goToEditMode}) => {
 };
 
 const Contact = ({contactTitle, contactValue}) => {
-    return <div className={cs.contactsB}><b className={cs.contactTitle}>{contactTitle}: </b>{contactValue}</div>
+    return <div className={cs.contactsB}><b
+        className={cs.contactTitle}>{contactTitle}: </b>{contactValue}</div>
 };
 
 export default ProfileInfo;

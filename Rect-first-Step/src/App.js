@@ -20,6 +20,7 @@ import withSuspense from "./hoc/withSuspense";
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const PageChat = React.lazy(() => import('./pages/Chat/PageChat'));
 
 class App extends React.Component {
 
@@ -50,6 +51,7 @@ class App extends React.Component {
                         </div>
                     }}/>
                     <Route path="/login" render={withSuspense(LoginPage)}/>
+                    <Route path="/chat" render={withSuspense(PageChat)}/>
                     <Route path="/dialogs" render={ withSuspense(DialogsContainer)
                     }/>
                     <Route path="/users" render={() => (<UsersContainer/>)}/>

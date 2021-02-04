@@ -12,5 +12,13 @@
 }
 
 .active {
-	color: limegreen;
+	color: rgb(181, 185, 181);
 }
+.item:hover {
+	color: rgb(100, 101, 104);
+	text-decoration: none;
+	background-color: rgb(185, 236, 185);
+	border-radius: 15%;
+	padding: 2px;
+}
+

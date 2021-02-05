@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-const wsChannel = new WebSocket(
-    "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-);
+import React, { useEffect, useState, useLayoutEffect } from "react";
 
 const PageChat = () => {
     return (
@@ -13,22 +9,56 @@ const PageChat = () => {
 };
 
 const Chat = () => {
+    const [wsChannel, setWsChannel] = useState(
+        new WebSocket(
+            "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+        )
+    );
+
+    useEffect(() => {
+        let ws = null;
+
+        const closeHandler = () => {
+            console.log("CLOSE WS");
+            setTimeout(createChannel, 1000);
+        };
+
+        function createChannel() {
+            if (ws !== null) {
+                ws.removeEventListener("close", closeHandler);
+            }
+            ws = new WebSocket(
+                "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+            );
+            ws.addEventListener("close", closeHandler);
+
+            setWsChannel(ws);
+        }
+
+        createChannel();
+    }, []);
+    // console.log(wsChannel)
+
     return (
         <div>
-            <Messages />
-            <AddMessageForm />
+            <Messages wsChannel={wsChannel} />
+            <AddMessageForm wsChannel={wsChannel} />
         </div>
     );
 };
-const Messages = () => {
+const Messages = ({ wsChannel }) => {
+    // console.log(wsChannel)
+
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        wsChannel.addEventListener("message", (e) => {
-            const newMessage = JSON.parse(e.data);
-            console.log(newMessage)
-            setMessages((prevMessage) => [...prevMessage, ...newMessage]);
-        });
+        const messageHandler = (e) => {
+            const newMessages = JSON.parse(e.data);
+
+            setMessages((prevMessage) => [...prevMessage, ...newMessages]);
+        };
+        wsChannel.addEventListener("message", messageHandler);
+        // }
     }, []);
 
     return (
@@ -41,12 +71,7 @@ const Messages = () => {
 };
 
 const Message = ({ message }) => {
-    // const message = {
-    //     url:
-    //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQogkpiCIGN0dcD8RJ9qpDi5bE4EYYs5-_Rag&usqp=CAU",
-    //     author: "Vlada",
-    //     text: "Hello every",
-    // };
+    // console.log(message);
     return (
         <div>
             <img
@@ -62,8 +87,20 @@ const Message = ({ message }) => {
     );
 };
 
-const AddMessageForm = () => {
+const AddMessageForm = ({ wsChannel }) => {
     const [message, setMessage] = useState("");
+    const [readyStatus, setReadyStatus] = useState("pending");
+
+    useEffect(() => {
+        // if (!wsChannel) {
+        //     return;
+        // } else {
+        wsChannel.addEventListener("open", (e) => {
+            setReadyStatus("ready");
+        });
+        // }
+    }, []);
+
     const sendMessage = () => {
         if (!message) {
             return;
@@ -81,9 +118,12 @@ const AddMessageForm = () => {
                     value={message}
                 ></textarea>
                 <br />
-                <button 
-                disabled={wsChannel.readyState !== WebSocket.OPEN}
-                onClick={sendMessage}>Send</button>
+                <button
+                    disabled={readyStatus !== "ready"}
+                    onClick={sendMessage}
+                >
+                    Send
+                </button>
             </div>
         </>
     );

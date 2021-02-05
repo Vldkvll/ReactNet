@@ -26,6 +26,7 @@ const Chat = () => {
         function createChannel() {
             if (ws !== null) {
                 ws.removeEventListener("close", closeHandler);
+                ws.close()
             }
             ws = new WebSocket(
                 "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
@@ -36,6 +37,10 @@ const Chat = () => {
         }
 
         createChannel();
+        return () => {
+             ws.removeEventListener("close", closeHandler);
+             ws.close()
+        }
     }, []);
     // console.log(wsChannel)
 
@@ -58,6 +63,10 @@ const Messages = ({ wsChannel }) => {
             setMessages((prevMessage) => [...prevMessage, ...newMessages]);
         };
         wsChannel.addEventListener("message", messageHandler);
+
+        return () => {
+            wsChannel.removeEventListener("message", messageHandler);
+        }
         // }
     }, []);
 

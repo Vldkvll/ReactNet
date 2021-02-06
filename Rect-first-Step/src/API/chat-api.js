@@ -7,6 +7,12 @@ const closeHandler = () => {
     setTimeout(createChannel, 1000);
 };
 
+const messageHandler = (e) => {
+    const newMessages = JSON.parse(e.data);
+    subscribes.forEach( subs => subs(newMessages))
+};
+// ws.addEventListener("message", messageHandler);
+
 function createChannel() {
     if (ws !== null) {
         ws.removeEventListener("close", closeHandler);
@@ -16,7 +22,6 @@ function createChannel() {
     );
     ws.addEventListener("close", closeHandler);
 }
-
 
 export const chatApi = {
     subscribe(cb){

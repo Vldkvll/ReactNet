@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     startMessagesListeningThunk,
     stopMessagesListeningThunk,
@@ -31,32 +31,66 @@ const Chat = () => {
 
     return (
         <>
-            {status === "error" ? (
+            {status === "error" && (
                 <div> Error! You should Refresh the Page</div>
-            ) : (
-                <div>
-                    <Messages />
-                    <AddMessageForm />
-                </div>
             )}
+            <div>
+                <Messages />
+                <AddMessageForm />
+            </div>
         </>
     );
 };
 
 const Messages = ({}) => {
     const messages = useSelector((state) => state.chat.messages);
+    const [autoScrollIsActiv, setAutoScrollIsActiv] = useState(true);
+    const messagesAnchorRef = useRef(null);
+
+    useEffect(() => {
+        if (
+            autoScrollIsActiv &&
+            (messagesAnchorRef.current !== null ||
+                messagesAnchorRef.current !== undefined)
+        ) {
+            messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+        // return () => {
+        //     cleanup;
+        // };
+    }, [messages]);
+
+    const scrollHandler = (e) => {
+        let element = e.currentTarget;
+        if (
+            Math.abs(
+                element.scrollHeight - element.scrollTop - element.clientHeight
+            ) < 300
+        ) {
+            !autoScrollIsActiv && setAutoScrollIsActiv(true);
+            // console.log("scrolols");
+        } else {
+            autoScrollIsActiv && setAutoScrollIsActiv(false);
+        }
+    };
+    
     // console.log(messages)
     return (
-        <div style={{ height: "450px", overflowY: "auto" }}>
-            {messages.map((mess, index) => (
-                <Message key={index} message={mess} />
-            ))}
+        <div
+        style={{ height: "450px", overflowY: "auto" }}
+        onScroll={scrollHandler}
+        >
+            {messages.map((mess) => (
+                <Message key={mess.id} message={mess} />
+                ))}
+            <div ref={messagesAnchorRef}></div>
         </div>
     );
 };
 
-const Message = ({ message }) => {
+const Message = React.memo(({ message }) => {
     // console.log(message);
+    console.log("scrolols12");
     return (
         <div>
             <img
@@ -70,7 +104,7 @@ const Message = ({ message }) => {
             <hr />
         </div>
     );
-};
+});
 
 const AddMessageForm = ({}) => {
     const [message, setMessage] = useState("");

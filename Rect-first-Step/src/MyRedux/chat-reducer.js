@@ -1,4 +1,5 @@
 import { chatApi } from "../API/chat-api";
+import { v1 } from 'uuid'
 
 const MESSAGE_RECIVED = "4-buddy.net/auth/MESSAGE_RECIVED";
 const STATUS_CHANGED = "4-buddy.net/auth/STATUS_CHANGED";
@@ -13,7 +14,7 @@ const chatReducer = (state = initialState, action) => {
         case "MESSAGE_RECIVED":
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages],
+                messages: [...state.messages, ...action.payload.messages.map( mes => ({...mes, id: v1()}))].filter( (mess, index, array) => index >= array.length - 100),
             };
         case "STATUS_CHANGED":
             return {

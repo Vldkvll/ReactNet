@@ -1,44 +1,57 @@
-let subscribes = [];
-console.log(!!subscribes.length)
+const subscribes = {
+    "message-recived": [],
+    "status-changed": [],
+};
+// console.log(!!subscribes.length);
 let ws = null;
 
+const notifySubscribersAboutStatus = (status) => {
+    subscribes["status-changed"].forEach((s) => s(status));
+};
+
 const closeHandler = () => {
+    notifySubscribersAboutStatus("pending");
     console.log("CLOSE WS");
     setTimeout(createChannel, 1000);
+};
+const openHandler = () => {
+    notifySubscribersAboutStatus("ready");
+    console.log("OPEN WS");
+};
+const errorHandler = () => {
+    notifySubscribersAboutStatus("error");
+    console.log("ERROR WS");
 };
 
 const messageHandler = (e) => {
     const newMessages = JSON.parse(e.data);
-    console.log(newMessages)
-    console.log(Array.isArray(subscribes))
-    console.log(!!subscribes.length)
-    console.log('messageHandler')
-    console.dir(subscribes)
-    if(subscribes.length !== 0){
-        subscribes.forEach(s => s(newMessages))
+    if (subscribes.length !== 0) {
+        subscribes["message-recived"].forEach((s) => s(newMessages));
     }
-    // subscribes.forEach(s => (
-    //     console.log(newMessages)
-        // (newMessages)
-    
-        // );
-    // subscribes = [...subscribes, ...newMessages];
 };
-// ws.addEventListener("message", messageHandler);
+
+const cleanUp = () => {
+    ws.removeEventListener("close", closeHandler);
+    ws.removeEventListener("message", messageHandler);
+    ws.removeEventListener("open", openHandler);
+    ws.removeEventListener("error", errorHandler);
+};
 
 function createChannel() {
     if (ws !== null) {
         // console.log(ws)
-        ws.removeEventListener("close", closeHandler);
-        ws.close()
+        cleanUp();
+        ws.close();
     }
-    console.log("!!subscribes.length")
-    console.log(!!subscribes.length)
+
     ws = new WebSocket(
         "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
     );
+    notifySubscribersAboutStatus("pending");
     ws.addEventListener("close", closeHandler);
     ws.addEventListener("message", messageHandler);
+    ws.addEventListener("open", openHandler);
+    ws.addEventListener("error", errorHandler);
 }
 
 export const chatApi = {
@@ -46,21 +59,25 @@ export const chatApi = {
         createChannel();
     },
     stop() {
-        subscribes = []
-        ws.removeEventListener("close", closeHandler);
-        ws.removeEventListener("message", messageHandler);
+        subscribes["message-recived"] = [];
+        subscribes["status-changed"] = [];
+        cleanUp();
         ws.close();
     },
-    subscribe(callback) {
-        console.log("!!subscribes")
-        console.log(callback)
-        subscribes.push(callback);
+    subscribe(eventName, callback) {
+        // console.log("!!subscribes");
+        // console.log(callback);
+        subscribes[eventName].push(callback);
         return () => {
-            subscribes = subscribes.filter((subs) => subs !== callback);
+            subscribes[eventName] = subscribes[eventName].filter(
+                (subs) => subs !== callback
+            );
         };
     },
-    unsubscribe(callback) {
-        subscribes = subscribes.filter((subs) => subs !== callback);
+    unsubscribe(eventName, callback) {
+        subscribes[eventName] = subscribes[eventName].filter(
+            (subs) => subs !== callback
+        );
     },
     sendMessage(message) {
         if (ws !== null) {

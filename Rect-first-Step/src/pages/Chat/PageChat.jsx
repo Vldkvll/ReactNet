@@ -1,11 +1,11 @@
-import React, { useEffect, useState,} from "react";
+import React, { useEffect, useState } from "react";
 import {
     startMessagesListeningThunk,
     stopMessagesListeningThunk,
     sendMessageThunk,
 } from "../../MyRedux/chat-reducer";
 
-import { useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 
 const PageChat = () => {
     return (
@@ -17,6 +17,7 @@ const PageChat = () => {
 
 const Chat = () => {
     const dispatch = useDispatch();
+    const status = useSelector((state) => state.chat.status);
 
     // debugger
     useEffect(() => {
@@ -29,15 +30,22 @@ const Chat = () => {
     }, []);
 
     return (
-        <div>
-            <Messages />
-            <AddMessageForm />
-        </div>
+        <>
+            {status === "error" ? (
+                <div> Error! You should Refresh the Page</div>
+            ) : (
+                <div>
+                    <Messages />
+                    <AddMessageForm />
+                </div>
+            )}
+        </>
     );
 };
+
 const Messages = ({}) => {
     const messages = useSelector((state) => state.chat.messages);
-console.log(messages)
+    // console.log(messages)
     return (
         <div style={{ height: "450px", overflowY: "auto" }}>
             {messages.map((mess, index) => (
@@ -66,7 +74,8 @@ const Message = ({ message }) => {
 
 const AddMessageForm = ({}) => {
     const [message, setMessage] = useState("");
-    const [readyStatus, setReadyStatus] = useState("pending");
+    // const [readyStatus, setReadyStatus] = useState("pending");
+    const status = useSelector((state) => state.chat.status);
 
     const dispatch = useDispatch();
 
@@ -88,7 +97,7 @@ const AddMessageForm = ({}) => {
                 ></textarea>
                 <br />
                 <button
-                    // disabled={wsChannel === null || readyStatus !== "ready"}
+                    disabled={status !== "ready"}
                     onClick={sendMessageHandler}
                 >
                     Send

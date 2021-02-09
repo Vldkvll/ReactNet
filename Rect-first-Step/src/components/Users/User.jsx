@@ -2,6 +2,8 @@ import React from "react";
 import cs from "./Users.module.css";
 import userPhoto from "../../assets/images/avaIndianGirl.jpg"
 import {NavLink} from "react-router-dom";
+import { Button } from "antd";
+import ActionButton from "antd/lib/modal/ActionButton";
 
 
 let User = ({user, followingInProgress, unfollow, follow}) => {
@@ -19,11 +21,11 @@ let User = ({user, followingInProgress, unfollow, follow}) => {
 
                         <div>
                             {user.followed
-                                ?   <button key={user.id}
+                                ?   <ActionButton key={user.id}
                                           disabled={followingInProgress.some( id => id === user.id )}
                                           onClick={() => {unfollow(user.id)}}>
                                     unfollow
-                                    </button>
+                                    </ActionButton>
 
                                 :   <button  key={user.id}
                                            disabled={followingInProgress.some( id => id === user.id )}

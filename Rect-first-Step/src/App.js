@@ -1,4 +1,4 @@
-
+import 'antd/dist/antd.css';
 import React, {Suspense} from "react";
 import "./App.css";
 import {Route, withRouter} from "react-router-dom";

@@ -121,13 +121,22 @@ const AddMessageForm = ({}) => {
         setMessage("");
     };
 
+    const process = (e) => {
+        // debugger
+        let code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) { //Enter keycode
+            sendMessageHandler();
+        }
+    }
+
     return (
         <>
             <div style={{ margin: "40px 0" }}>
                 <textarea
                     onChange={(e) => setMessage(e.currentTarget.value)}
-                    placeholder={"u message"}
+                    placeholder={"send u message"}
                     value={message}
+                    onKeyPress={(e) => process(e)}
                 ></textarea>
                 <br />
                 <button

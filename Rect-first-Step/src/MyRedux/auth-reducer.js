@@ -52,6 +52,7 @@ export const login = (email, password, rememberMe) => (async (dispatch) => {
 });
 
 export const logout = (email, password, rememberMe) => (async (dispatch) => {
+    // debugger
     const responseData = await AuthApi.logout()
     if (responseData.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))

@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import "antd/dist/antd.css";
 import "./App.css";
 import { Route, withRouter, Switch, Link } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
 import Settings from "./components/Settings/Settings";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -11,7 +10,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 // import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 // import ProfileContainer from "./components/Profile/ProfileContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import Header from "./components/Header/Header";
 import LoginPage from "./Login/login";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -19,16 +18,15 @@ import { initializeApp } from "./MyRedux/app-reducer";
 import Preloader from "./components/Common/Preloader/Preloader";
 import withSuspense from "./hoc/withSuspense";
 
-import { Layout, Menu, Breadcrumb, Avatar, Badge, Row, Col } from "antd";
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
     UserOutlined,
     LaptopOutlined,
     NotificationOutlined,
-    AntDesignOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const ProfileContainer = React.lazy(() =>
     import("./components/Profile/ProfileContainer")
@@ -50,34 +48,7 @@ class App extends React.Component {
         return (
             <>
                 <Layout>
-                    <Header className="header" style={{backgroundColor: '#fff',}}>
-                        <div className="logo" />
-                        <Row>
-                            <Col span={20}>
-                                <Menu
-                                    theme="light"
-                                    mode="horizontal"
-                                    defaultSelectedKeys={["1"]}
-                                >
-                                    <Menu.Item key="1">Developers</Menu.Item>
-                                    {/* <Menu.Item key="2">nav 2</Menu.Item>
-                            <Menu.Item key="3">nav 3</Menu.Item> */}
-                                </Menu>
-                            </Col>
-                            <Col span={4}>
-                                <span className="avatar-item">
-                                    <Badge count={1}>
-                                        <Avatar
-                                            style={{
-                                                backgroundColor: "#1890ff",
-                                            }}
-                                            icon={<AntDesignOutlined />}
-                                        />
-                                    </Badge>
-                                </span>
-                            </Col>
-                        </Row>
-                    </Header>
+                    <Header />
                     <Content style={{ padding: "0 50px" }}>
                         <Breadcrumb style={{ margin: "16px 0" }}>
                             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -130,12 +101,7 @@ class App extends React.Component {
                                     >
                                         <Menu.Item key="5">
                                             <div>
-                                                <Link
-                                                    to="/Users"
-                                                    // activeClassName={classes.active} className={classes.item}
-                                                >
-                                                    Users
-                                                </Link>
+                                                <Link to="/Users">Users</Link>
                                             </div>
                                         </Menu.Item>
                                         {/* <Menu.Item key="6">option6</Menu.Item>
@@ -206,20 +172,9 @@ class App extends React.Component {
                         </Layout>
                     </Content>
                     <Footer style={{ textAlign: "center" }}>
-                        Ant Design ©2018 Created by Ant UED
+                        Social Network ©2020 Created by Me
                     </Footer>
                 </Layout>
-
-                {/* <div className="app-wrapper">
-                <div className="app-header">
-                    <HeaderContainer/>
-                </div>
-
-                <Navbar/>
-
-                <div className="app-wrapper-content">
-                  </div>
-            </div> */}
             </>
         );
     }
